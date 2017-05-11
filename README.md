@@ -18,16 +18,16 @@ then you're completely set and ready to run PyLights!
 `pip install pylights`
 
 ### Dependencies:
-* PyPhue (allows PyLights to communicate with philips hue lights)
+* PyPHue (allows PyLights to communicate with philips hue lights)
 * PyGame (Allows PyLights to play audio)
 * Librosa (allows PyLights to analyze audio and find onsets, rhythm, and beats)
 
 ### Example:
-To utilize PyLights you need to first use the PyPhue module to create a bridge object. This will allow PyLights to communicate with the lights.
+To utilize PyLights you need to first use the PyPHue module to create a bridge object. This will allow PyLights to communicate with the lights.
 
 `myHue = pyphue.PyPHue(wizard = True)`
 
-For more information on bridge setup, check out the [PyPhue module page here](https://github.com/rdespoiu/PyPHue)
+For more information on bridge setup, check out the [PyPHue module page here](https://github.com/rdespoiu/PyPHue)
 Chances are, you will only want to use the wizard option during first time setup.
 
 Afterwards you'll need to create a PyLights object
