@@ -18,13 +18,14 @@ PyLights aims to make it easy to have your philips hue light bulbs pulse to what
 ### Example:
 To utilize PyLights you need to first use the PyPhue module to create a bridge object. This will allow PyLights to communicate with the lights.
 
-`myHue = pyphue.PyPHue(ip = yourIp, user = yourUserId, AppName = 'PyPhue', DeviceName = 'Desktop:YourUserName', wizard = False) # Use the PyPhue module to connect to your bridge`
+`myHue = pyphue.PyPHue(wizard = True)`
 
-For more information on bridge setup, check out the PyPhue module page [here](https://github.com/rdespoiu/PyPHue)
+For more information on bridge setup, check out the [PyPhue module page here](https://github.com/rdespoiu/PyPHue)
+Chances are, you will only want to use the wizard option during first time setup.
 
 Afterwards you'll need to create a PyLights object
 
-`from pylights import *
+`import pylights.pylights
 MyPyLights = pylights.PyLights(myHue)`
 
 You'll now need to tell PyLights what lights you have, how to use them, and what lights support colors.
