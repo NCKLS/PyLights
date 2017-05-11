@@ -21,12 +21,16 @@ class PyLights:
         primaryOff = False
 
         for item in self.primaryLights:
+            if item[1]:
+                self.bridge.setHue(item[0], colorTheme + random.randint(-5000, 5000))
+                self.bridge.setSaturation(item[0], 255)
             self.bridge.turnOn(item[0])
             self.bridge.setBrightness(item[0],255)
 
         for item in self.secondaryLights:
             if item[1]:
                 self.bridge.setHue(item[0], colorTheme + random.randint(-5000, 5000))
+                self.bridge.setSaturation(item[0], 255)
             self.bridge.turnOn(item[0])
             self.bridge.setBrightness(item[0], 255)
 
@@ -63,7 +67,6 @@ class PyLights:
                 secondaryOn = abs(self.beat_times[i] - lastBigBeat)
                 if (secondaryOn > 1):
                     lastBigBeat = self.beat_times[i]
-                    print(secondaryOn)
                     for item in self.secondaryLights:
                         if item[1]:
                             self.bridge.setHue(item[0], colorTheme + random.randint(-5000, 5000))
@@ -75,7 +78,7 @@ class PyLights:
                         self.bridge.setHue(item[0], colorTheme + random.randint(-5000, 5000))
                     self.bridge.setBrightness(item[0], primaryBrightness)
 
-            elif primaryBrightness > 0:
+            elif primaryBrightness > 10:
                 for item in self.primaryLights:
                     if item[1]:
                         self.bridge.setHue(item[0], colorTheme + random.randint(-5000, 5000))
