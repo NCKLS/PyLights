@@ -3,7 +3,7 @@ PyLights aims to make it easy to have your philips hue light bulbs pulse to what
 
 ##### GIF Preview (Much cooler with audio)
 
-![Preview of Lights Reacting to Audio](https://giphy.com/embed/3ohze1F8xkOKrycwQ8)
+<iframe src="https://giphy.com/embed/3ohze1F8xkOKrycwQ8" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/3ohze1F8xkOKrycwQ8">via GIPHY</a></p>
 
 ##### Video Preview (Work In Progress)
 ----------------------------------------
