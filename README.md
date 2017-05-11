@@ -1,5 +1,12 @@
 # PyLights
-PyLights aims to make it easy to have your philips hue light bulbs pulse to whatever song or audio file you want.
+PyLights allows you to easily make your philips hue light bulbs pulse to the beat of your own music.
+It's as easy as...
+
+1) Connect to the bridge using PyPHue (One line of code)
+2) Connect your lights to PyLights and tell them what you want them to do (One line of code)
+3) Load an mp3 or wav file into PyLights
+
+then you're completely set and ready to run PyLights!
 
 ##### GIF Preview (Much cooler with audio)
 
