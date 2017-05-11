@@ -1,6 +1,12 @@
 # PyLights
 PyLights aims to make it easy to have your philips hue light bulbs pulse to whatever song or audio file you want.
 
+##### GIF Preview (Much cooler with audio)
+
+![Preview of Lights Reacting to Audio](//i.imgur.com/JotIP1K.mp4)
+
+##### Video Preview (Work In Progress)
+----------------------------------------
 ### Installation:
 `pip install pylights`
 
