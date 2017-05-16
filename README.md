@@ -33,6 +33,7 @@ Chances are, you will only want to use the wizard option during first time setup
 Afterwards you'll need to create a PyLights object
 
 `import pylights.pylights`
+
 `MyPyLights = pylights.PyLights(myHue)`
 
 You'll now need to tell PyLights what lights you have, how to use them, and what lights support colors.
