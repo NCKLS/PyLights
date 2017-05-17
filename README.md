@@ -40,11 +40,10 @@ You'll now need to tell PyLights what lights you have, how to use them, and what
 You'll need to find out your light IDs, which begin at 1 and extend to how many lights you have.
 It's easy to identify your lights with trial and error.
 
-`MyPyLights.loadLight(lightId = '1', primary=True, color=True)`
+`MyPyLights.loadLight(lightId = '1', harmonic=True, percussive=True, color=True, flash=False)`
 
-You'll have to determine if the light is primary or not.
-Primary lights react to every onset in a song while secondary lights only react to the strongest onsets.
-It's also required that the color parametere is filled out. If your philips hue light supports color, set it True, otherwise False.
+You have the option to make light '1' to react to harmonic beats, percussive beats, or both.
+You may also decide whether or not you want the light to flash. The flash option is off by default, but when turned on makes lights turn off more frequently.
 
 You will load every light you want to use this way.
 
