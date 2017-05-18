@@ -27,6 +27,7 @@ else:
         for item in lightsToAdd:
             print("ID: %s | Harmonic: %s | Percussive: %s | Color: %s | Flash: %s" % (item[0], item[1], item[2], item[3], item[4]))
 
+
 for item in lightsToAdd:
     harmonicBool = (item[1] == "y")
     percussiveBool = (item[2] == "y")
@@ -34,21 +35,23 @@ for item in lightsToAdd:
     flashBool = (item[4] == "y")
     myPyLights.loadLight(lightId=item[0], harmonic=harmonicBool, percussive=percussiveBool, color=colorBool, flash=flashBool)
 
-print("Song Selection...")
-for i in range(0, len(possibleFiles)): # Prints list of songs available in the Songs file directory
-    print("    %s" % (possibleFiles[i]))
+while True:
+    closestMatch = ""
+    print("Song Selection...")
+    for i in range(0, len(possibleFiles)): # Prints list of songs available in the Songs file directory
+        print("    %s" % (possibleFiles[i]))
 
-while len(closestMatch) < 1:  # Continously ask user to input a song of choice until a song is found
-    songName = input("Song Name: ")
-    closestMatch = difflib.get_close_matches(songName,
-                                             possibleFiles)  # Returns most similar file names to song name entered
+    while len(closestMatch) < 1:  # Continously ask user to input a song of choice until a song is found
+        songName = input("Song Name: ")
+        closestMatch = difflib.get_close_matches(songName,
+                                                 possibleFiles)  # Returns most similar file names to song name entered
 
-    if (len(closestMatch) > 0):
-        songName = closestMatch[0]  # Sets song name to the closest matching song file
-        print("Playing %s" % (songName))
-        myPyLights.loadAudio(fileName = songName) # Once a song has been selected, load the song into the pylights object
-        break
-    else:
-        print("\n\nSong not found! Please try again!\n")
+        if (len(closestMatch) > 0):
+            songName = closestMatch[0]  # Sets song name to the closest matching song file
+            print("Playing %s" % (songName))
+            myPyLights.loadAudio(fileName = songName) # Once a song has been selected, load the song into the pylights object
+            break
+        else:
+            print("\n\nSong not found! Please try again!\n")
 
-myPyLights.run()
+    myPyLights.run()

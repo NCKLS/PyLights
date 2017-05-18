@@ -1,10 +1,8 @@
-import pyphue # Manages phillips hue lights
 import time # Manages timing of notes
 import librosa # Manages detection of onsets and onset strength
 import pickle # Manages saving/loading of data
 import os # Manages directories
 import random # Manages random color generation
-import numpy as np # Manages arrays and data returned from Librosa
 from pygame import mixer # Plays mp3 files
 
 class PyLights:
@@ -15,10 +13,7 @@ class PyLights:
 
     def run(self):
         colorTheme = random.randint(0, 65535)
-        lastBigBeat = 0
-        primaryBrightness = 255
         tick = 0
-        primaryOff = False
 
         for item in self.harmonicLights:
             if item[1]:
@@ -39,19 +34,19 @@ class PyLights:
         mixer.init()
         mixer.music.load(os.path.join(self.songPath, "%s" % self.fileName))
 
-        #self.beat_times = map(lambda x: round(x * 500)/500, self.beat_times)
-        #self.beat_times = list(set(self.beat_times)) #Eliminate notes that are very very similar to prevent lights from being triggered twice
-        self.beat_times.sort()
-
+        #self.beat_times = map(lambda x: round(x * 500)/500, self.beat_times) #Eliminate notes that are very similar to prevent lights from being triggered twice
         #self.harmonic_beat_times = map(lambda x: round(x * 500)/500, self.harmonic_beat_times)
         #self.percussive_beat_times = map(lambda x: round(x * 500)/500, self.percussive_beat_times)
 
+        self.beat_times = list(set(self.beat_times)) #Eliminate notes that are the same to prevent lights from being triggered twice
+        self.beat_times.sort()
+
         mixer.music.play()
         time.sleep(self.beat_times[0])
-        for i, beatTime in enumerate(self.beat_times):
-            tick = (tick + 1) % 2
 
+        for i, beatTime in enumerate(self.beat_times):
             colorTheme = random.randint(0, 65535)
+            tick = (tick + 1) % 2
 
             harmonicBeat = bool(self.beat_times[i] in self.harmonic_beat_times)
             percussiveBeat = bool(self.beat_times[i] in self.percussive_beat_times)
@@ -72,7 +67,7 @@ class PyLights:
                         self.bridge.setBrightness(light[0], brightnessValueFlash)
                         self.bridge.setBrightness(light[0], 0)
                     else:
-                        if (brightnessValue > 1):
+                        if (brightnessValue > 50):
                             self.bridge.setBrightness(light[0], brightnessValue)
                         else:
                             self.bridge.setBrightness(light[0], brightnessValue)
@@ -85,8 +80,6 @@ class PyLights:
                         if (self.bridge.getBrightness(light[0]) == 0 and light[3]):
                             light[3] = False
                             self.bridge.turnOff(light[0])
-                        else:
-                            self.bridge.setBrightness(light[0], 0)
 
             if percussiveBeat: # If a percussive beat is detected in this onset, fire off percussive lights
                 brightnessValueFlash = min((PyLights.returnBrightness(self, tick, i)) + 15, 255)
@@ -104,7 +97,7 @@ class PyLights:
                         self.bridge.setBrightness(light[0], brightnessValueFlash)
                         self.bridge.setBrightness(light[0], 0)
                     else:
-                        if (brightnessValue > 1):
+                        if (brightnessValue > 50):
                             self.bridge.setBrightness(light[0], brightnessValue)
                         else:
                             self.bridge.setBrightness(light[0], brightnessValue)
@@ -117,8 +110,6 @@ class PyLights:
                         if (self.bridge.getBrightness(light[0]) == 0 and light[3]):
                             light[3] = False
                             self.bridge.turnOff(light[0])
-                        else:
-                            self.bridge.setBrightness(light[0], 0)
 
             if (i < len(self.beat_times) - 1):
                 timeToNextNote = max(beatTime - (time.time() - starttime), 0)
@@ -162,7 +153,7 @@ class PyLights:
                 y, sr = librosa.load(os.path.join(songPath, "%s" % fileName))
                 y_harmonic, y_percussive = librosa.effects.hpss(y)
 
-                #Onsets
+                #Onsets [Keeping until switch to beats tracking is 100% certain]
                 #self.o_env = librosa.onset.onset_strength(y=y, sr=sr).tolist()
                 #self.harmonic_beat_times = librosa.frames_to_time(librosa.onset.onset_detect(y=y_harmonic, sr=sr), sr=sr).tolist()
                 #self.percussive_beat_times = librosa.frames_to_time(librosa.onset.onset_detect(y=y_percussive, sr=sr), sr=sr).tolist()
@@ -180,7 +171,7 @@ class PyLights:
             y, sr = librosa.load(os.path.join(songPath, "%s" % fileName))
             y_harmonic, y_percussive = librosa.effects.hpss(y)
 
-            #Onsets
+            #Onsets [Keeping until switch to beats tracking is 100% certain]
             #self.o_env = librosa.onset.onset_strength(y=y, sr=sr).tolist()
             #self.harmonic_beat_times = librosa.frames_to_time(librosa.onset.onset_detect(y=y_harmonic, sr=sr), sr=sr).tolist()
             #self.percussive_beat_times = librosa.frames_to_time(librosa.onset.onset_detect(y=y_percussive, sr=sr), sr=sr).tolist()
@@ -200,7 +191,7 @@ class PyLights:
             returnBrightnessValue = int(275 - (100 / (self.o_env[beatNumber] + 0.01)))
 
         if (returnBrightnessValue < 125):
-            returnBrightnessValue -= 50
+            returnBrightnessValue -= 25
         else:
             returnBrightnessValue += 50
 
@@ -216,8 +207,8 @@ class PyLights:
 # myHue = pyphue.PyPHue(ip = setIp, user = userId, AppName = 'PyPhue', DeviceName = 'Desktop:YourUserName', wizard = False) # Use the PyPhue module to connect to your bridge
 
 # pylights = PyLights(myHue)
-# pylights.loadLight(lightId = '3', primary=True, color=True)
-# pylights.loadLight(lightId = '2', primary=False, color=False)
-# pylights.loadLight(lightId = '1', primary=False, color=False)
+# pylights.loadLight(lightId = '3', harmonic=True, color=True)
+# pylights.loadLight(lightId = '2', percussive=False, flash=True)
+# pylights.loadLight(lightId = '1', percussive=False, flash=True)
 # pylights.loadAudio(fileName = "CurtainsDown.mp3", songPath = os.path.abspath("CustomSongPath"), dataPath = os.path.abspath("CustomDataPath"), saveAndLoad=True)
 # pylights.run()
