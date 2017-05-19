@@ -37,9 +37,13 @@ for item in lightsToAdd:
 
 while True:
     closestMatch = ""
-    print("Song Selection...")
-    for i in range(0, len(possibleFiles)): # Prints list of songs available in the Songs file directory
-        print("    %s" % (possibleFiles[i]))
+    print("Song Selection...\n")
+    if (len(possibleFiles) > 0):
+        for i in range(0, len(possibleFiles)): # Prints list of songs available in the Songs file directory
+            print("    %s" % (possibleFiles[i]))
+    else:
+        print(" It doesn't look like you've got any music to listen to!")
+        print(" Add .mp3 or .wav files into the Songs directory just created and restart.")
 
     while len(closestMatch) < 1:  # Continously ask user to input a song of choice until a song is found
         songName = input("Song Name: ")
