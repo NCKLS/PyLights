@@ -13,6 +13,10 @@ then you're completely set and ready to run PyLights!
 <a href="https://imgflip.com/gif/1ov3b8"><img src="https://i.imgflip.com/1ov3b8.gif" title="made at imgflip.com"/></a>
 
 ##### Video Preview (Work In Progress)
+
+### Quick Demo:
+If you would like to quickly demo PyLights rather than use it as a tool, go a ahead and run the demo.py file. It will guide you step by step into setting up your system.
+
 ----------------------------------------
 ### Installation:
 `pip install pylights`
